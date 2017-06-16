@@ -1,9 +1,10 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.2 (win64) Build 932637 Wed Jun 11 13:33:10 MDT 2014
--- Date        : Wed May 31 20:29:13 2017
--- Host        : DESKTOP-A7EHJH3 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub C:/NaiveAnalysis/src/ip/clk_wiz_0/clk_wiz_0_stub.vhdl
+-- Date        : Sun Jun 15 12:22:24 2014
+-- Host        : Lenovo-PC running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub
+--               D:/XilinxProjects/Nexys4DdrSpectralSources/src/ip/clk_wiz_0/clk_wiz_0_stub.vhdl
 -- Design      : clk_wiz_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tcsg324-1

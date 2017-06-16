@@ -52,11 +52,11 @@ Port (
     ckaTime : in STD_LOGIC;
     enaTime : out STD_LOGIC;
     weaTime : out STD_LOGIC;
-    addraTime : out STD_LOGIC_VECTOR (9 downto 0);
+    addraTime : out STD_LOGIC_VECTOR (10 downto 0);
     dinaTime : in STD_LOGIC_VECTOR (7 downto 0);
     ckFreq : in STD_LOGIC;
     flgFreqSampleValid : out STD_LOGIC;
-    addrFreq : out STD_LOGIC_VECTOR (9 downto 0);
+    addrFreq : out STD_LOGIC_VECTOR (10 downto 0);
     byteFreqSample : out STD_LOGIC_VECTOR (7 downto 0)
 --    --debug
 --    debugcntFftLoadTime: out STD_LOGIC_VECTOR (9 downto 0);
@@ -95,18 +95,18 @@ COMPONENT blk_mem_gen_0
     clka : IN STD_LOGIC;
     ena : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     clkb : IN STD_LOGIC;
     enb : IN STD_LOGIC;
-    addrb : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addrb : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
     doutb : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
   );
 END COMPONENT;
 ATTRIBUTE SYN_BLACK_BOX : BOOLEAN;
 ATTRIBUTE SYN_BLACK_BOX OF blk_mem_gen_0 : COMPONENT IS TRUE;
 ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;
-ATTRIBUTE BLACK_BOX_PAD_PIN OF blk_mem_gen_0 : COMPONENT IS "clka,ena,wea[0:0],addra[9:0],dina[7:0],clkb,enb,addrb[9:0],doutb[7:0]";
+ATTRIBUTE BLACK_BOX_PAD_PIN OF blk_mem_gen_0 : COMPONENT IS "clka,ena,wea[0:0],addra[10:0],dina[7:0],clkb,enb,addrb[10:0],doutb[7:0]";
 
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
 
@@ -135,9 +135,9 @@ COMPONENT xfft_1
     event_data_out_channel_halt : OUT STD_LOGIC
   );
 END COMPONENT;
-----ATTRIBUTE SYN_BLACK_BOX : BOOLEAN;
+--ATTRIBUTE SYN_BLACK_BOX : BOOLEAN;
 ATTRIBUTE SYN_BLACK_BOX OF xfft_1 : COMPONENT IS TRUE;
-----ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;
+--ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;
 ATTRIBUTE BLACK_BOX_PAD_PIN OF xfft_1 : COMPONENT IS "aclk,s_axis_config_tdata[7:0],s_axis_config_tvalid,s_axis_config_tready,s_axis_data_tdata[15:0],s_axis_data_tvalid,s_axis_data_tready,s_axis_data_tlast,m_axis_data_tdata[47:0],m_axis_data_tvalid,m_axis_data_tready,m_axis_data_tlast,event_frame_started,event_tlast_unexpected,event_tlast_missing,event_status_channel_halt,event_data_in_channel_halt,event_data_out_channel_halt";
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
 
@@ -180,7 +180,7 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF xfft_1 : COMPONENT IS "aclk,s_axis_config_tdata[7
    signal flgReset : std_logic;  -- reset for time acquisition counter (includes edge sync)
 
 -- Load/Unload counters' signals
-   signal cntFftLoadTime, cntFftUnloadFreq: STD_LOGIC_VECTOR (9 downto 0);
+   signal cntFftLoadTime, cntFftUnloadFreq: STD_LOGIC_VECTOR (10 downto 0);
    signal flgCountLoad: std_logic; -- active while counting
 
    signal cenLoadCounter: std_logic; -- count enable for Load counter
@@ -307,8 +307,8 @@ begin
       end case;      
    end process;
 
-   addraTime <= intAddraTime(9 downto 0);  -- 10bit out
-   intEnaTime <= not intAddraTime(10);  -- blocked when cnt(10) = 1
+   addraTime <= intAddraTime(10 downto 0);  -- 10bit out
+   intEnaTime <= not intAddraTime(11);  -- blocked when cnt(10) = 1
 
 TimeAcqSync: process(ckaTime)  -- sync time acquisition on rising edge at level zero
    begin
@@ -332,7 +332,7 @@ TimeCounter: process(ckaTime)
          if flgReset = '1' then
             intAddraTime <= (others => '0');
          elsif intWeaTime = '1' then
-            if intAddraTime(10) = '1' then -- blocking condition
+            if intAddraTime(11) = '1' then -- blocking condition
                null;
             else
                intAddraTime <= intAddraTime + '1';
@@ -348,7 +348,7 @@ FftLoadCounter: process(ckFft)
             cntFftLoadTime <= cntFftLoadTime + '1';
          end if;
          flgCountLoad <= '1'; -- active low
-         if cntFftLoadTime = "1111111110" then
+         if cntFftLoadTime = "11111111110" then
 --            cntFftLoadTime <= (others => '0');  -- reset (useles)
             flgCountLoad <= '0'; -- active low
          end if;   
@@ -363,7 +363,7 @@ FftUnloadCounter: process(ckFft)
    begin
       if rising_edge(ckFft) then
          cntFftUnloadFreq <= cntFftUnloadFreq + '1';
-         if cntFftUnloadFreq = "1111111111" then
+         if cntFftUnloadFreq = "11111111111" then
             cntFftUnloadFreq <= (others => '0');  -- reset (useles)
          elsif m_axis_data_tlast = '1' then  -- sync
             cntFftUnloadFreq <= (others => '0');  -- reset (sync)
@@ -380,7 +380,7 @@ TimeBlkMemForFft: blk_mem_gen_0
     clka => ckaTime,
     ena => intEnaTime, -- active while counting
     wea(0) => intWeaTime,  -- wea is std_logic_vector(0 downto 0) ...
-    addra => intAddraTime(9 downto 0),
+    addra => intAddraTime(10 downto 0),
     dina => dinaTime,
     clkb => ckFft,  -- Video clock 
     enb => '1',

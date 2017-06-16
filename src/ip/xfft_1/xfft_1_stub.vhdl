@@ -1,9 +1,10 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.2 (win64) Build 932637 Wed Jun 11 13:33:10 MDT 2014
--- Date        : Wed May 31 20:25:06 2017
--- Host        : DESKTOP-A7EHJH3 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub C:/NaiveAnalysis/src/ip/xfft_1/xfft_1_stub.vhdl
+-- Date        : Sun Jun 15 22:08:30 2014
+-- Host        : Lenovo-PC running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub
+--               D:/XilinxProjects/Nexys4DdrSpectralSources/src/ip/xfft_1/xfft_1_stub.vhdl
 -- Design      : xfft_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tcsg324-1

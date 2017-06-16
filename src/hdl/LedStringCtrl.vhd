@@ -43,7 +43,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity LedStringCtrl is
     Port ( ck100MHz: in std_logic;  -- system clock
            flgFreqSampleValid: in STD_LOGIC; -- frequency sample valid
-           addraFreq: in STD_LOGIC_VECTOR (9 downto 0); -- Freq sample address
+           addraFreq: in STD_LOGIC_VECTOR (10 downto 0); -- Freq sample address
            byteFreqSample: in STD_LOGIC_VECTOR (7 downto 0);  -- freq domain sample for display
 		   bitDataNrz : out  STD_LOGIC;  -- 1 wire, NRZ data bus for the LED string
 		   
