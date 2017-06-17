@@ -1,9 +1,9 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.2 (win64) Build 932637 Wed Jun 11 13:33:10 MDT 2014
-// Date        : Wed May 31 20:29:13 2017
+// Date        : Fri Jun 16 18:13:41 2017
 // Host        : DESKTOP-A7EHJH3 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub C:/NaiveAnalysis/src/ip/clk_wiz_0/clk_wiz_0_stub.v
+// Command     : write_verilog -force -mode synth_stub C:/Nexys4DdrSpectralSources/src/ip/clk_wiz_0/clk_wiz_0_stub.v
 // Design      : clk_wiz_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1

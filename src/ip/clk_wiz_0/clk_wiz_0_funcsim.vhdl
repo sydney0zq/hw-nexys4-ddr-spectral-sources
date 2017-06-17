@@ -1,9 +1,9 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.2 (win64) Build 932637 Wed Jun 11 13:33:10 MDT 2014
--- Date        : Wed May 31 20:29:13 2017
+-- Date        : Fri Jun 16 18:13:41 2017
 -- Host        : DESKTOP-A7EHJH3 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim C:/NaiveAnalysis/src/ip/clk_wiz_0/clk_wiz_0_funcsim.vhdl
+-- Command     : write_vhdl -force -mode funcsim C:/Nexys4DdrSpectralSources/src/ip/clk_wiz_0/clk_wiz_0_funcsim.vhdl
 -- Design      : clk_wiz_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -78,16 +78,16 @@ clkout2_buf: unisim.vcomponents.BUFG
 mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
     generic map(
       BANDWIDTH => "OPTIMIZED",
-      CLKFBOUT_MULT_F => 6.000000,
+      CLKFBOUT_MULT_F => 6.125000,
       CLKFBOUT_PHASE => 0.000000,
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 10.000000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 125.000000,
+      CLKOUT0_DIVIDE_F => 127.625000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,
-      CLKOUT1_DIVIDE => 24,
+      CLKOUT1_DIVIDE => 6,
       CLKOUT1_DUTY_CYCLE => 0.500000,
       CLKOUT1_PHASE => 0.000000,
       CLKOUT1_USE_FINE_PS => false,
