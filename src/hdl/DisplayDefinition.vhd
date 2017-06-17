@@ -1,6 +1,3 @@
---
---	Package File Template
---
 --	Purpose: This package defines supplemental types, subtypes, 
 --		 constants, and functions 
 --
