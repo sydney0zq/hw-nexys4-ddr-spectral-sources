@@ -63,7 +63,7 @@ entity TopNexys4Spectral is
    -- led string signal
            bitDataNrz : out  std_logic;  -- serial data for the LED string 
    -- on-board LEDs
-           led : out std_logic_vector(15 downto 0);  -- not used
+--           led : out std_logic_vector(15 downto 0);  -- not used
    -- debug  
            sw: in std_logic_vector(15 downto 0) -- debug for selecting  output data byte (sensitivity) (sw2:0) 
            );
@@ -77,19 +77,19 @@ architecture Behavioral of TopNexys4Spectral is
                                            -- to wea of the Time buffer
    signal flgTimeFrameActive: std_logic;   -- from FFT_Block time address counter 
                                            -- to ena of the Time buffer
-   signal addraTime: std_logic_vector(9 downto 0); -- from FFT_Block time address counter 
+   signal addraTime: std_logic_vector(10 downto 0); -- from FFT_Block time address counter 
                                            -- to addra of time buffer
 
    signal byteFreqSample: std_logic_vector(7 downto 0); -- from FftBlock data_mic
                                            -- to dina of the Time buffer 
    signal flgFreqSampleValid: std_logic;   -- from FftBlock sample flgFreqSampleValid
                                            -- to wea of the frequency buffer
-   signal addraFreq: std_logic_vector(9 downto 0); -- from FFT_Block frequency address counter 
+   signal addraFreq: std_logic_vector(10 downto 0); -- from FFT_Block frequency address counter 
                                            -- to addra of frequency buffer
 -- video signals
   signal ck25MHz: std_logic;  -- Video clock
   signal flgActiveVideo: std_logic;
-  signal adrHor: integer range 0 to cstHorSize - 1; -- pixel counter
+  signal adrHor: integer range 0 to cstHorSize - 1; -- pixel counter    //adhor 1280   csthorsize 1688
   signal adrVer: integer range 0 to cstVerSize - 1; -- lines counter
 
 -- StartTiemAcquisition
@@ -130,11 +130,11 @@ end component;
         );
     end component;
 
-ATTRIBUTE SYN_BLACK_BOX : BOOLEAN;--
+--ATTRIBUTE SYN_BLACK_BOX : BOOLEAN;
 ATTRIBUTE SYN_BLACK_BOX OF clk_wiz_0 : COMPONENT IS TRUE;
 
 
-ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;--
+--ATTRIBUTE BLACK_BOX_PAD_PIN : STRING;
 ATTRIBUTE BLACK_BOX_PAD_PIN OF clk_wiz_0 : COMPONENT IS "ck100MHz,ck4800kHz,ck25MHz,reset,locked";
 
 	COMPONENT VgaCtrl
@@ -153,12 +153,12 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF clk_wiz_0 : COMPONENT IS "ck100MHz,ck4800kHz,ck25
      -- time domain data signals       
         enaTime : in STD_LOGIC;
         weaTime : in STD_LOGIC;
-        addraTime : in STD_LOGIC_VECTOR (9 downto 0);
+        addraTime : in STD_LOGIC_VECTOR (10 downto 0);
         dinaTime : in STD_LOGIC_VECTOR (7 downto 0);
      -- frequency domain data signals
-----        enaFreq : in STD_LOGIC;
+--      enaFreq : in STD_LOGIC;
         weaFreq : in STD_LOGIC;
-        addraFreq : in STD_LOGIC_VECTOR (9 downto 0);
+        addraFreq : in STD_LOGIC_VECTOR (10 downto 0);
         dinaFreq : in STD_LOGIC_VECTOR (7 downto 0);
      -- video signals
         ckVideo : in STD_LOGIC;
@@ -174,7 +174,7 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF clk_wiz_0 : COMPONENT IS "ck100MHz,ck4800kHz,ck25
     Port ( 
         ck100MHz: in std_logic;  -- system clock
         flgFreqSampleValid: in STD_LOGIC; -- frequency sample valid
-        addraFreq: in STD_LOGIC_VECTOR (9 downto 0); -- Freq sample address
+        addraFreq: in STD_LOGIC_VECTOR (10 downto 0); -- Freq sample address
         byteFreqSample: in STD_LOGIC_VECTOR (7 downto 0);  -- freq domain sample for display
         bitDataNrz : out  STD_LOGIC;  -- 1 wire, NRZ data bus for the LED string
         -- debug
@@ -190,11 +190,11 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF clk_wiz_0 : COMPONENT IS "ck100MHz,ck4800kHz,ck25
         ckaTime : in STD_LOGIC;
         enaTime : out STD_LOGIC;
         weaTime : out STD_LOGIC;
-        addraTime : out STD_LOGIC_VECTOR (9 downto 0);
+        addraTime : out STD_LOGIC_VECTOR (10 downto 0);
         dinaTime : in STD_LOGIC_VECTOR (7 downto 0);
         ckFreq : in STD_LOGIC;
         flgFreqSampleValid : out STD_LOGIC;
-        addrFreq : out STD_LOGIC_VECTOR (9 downto 0);
+        addrFreq : out STD_LOGIC_VECTOR (10 downto 0);
         byteFreqSample : out STD_LOGIC_VECTOR (7 downto 0)
         );   
    end component;
@@ -217,7 +217,7 @@ begin
 clkGenInst: clk_wiz_0
       port map ( 
    
-     -- Clock in ports
+      -- Clock in ports
       ck100MHz => ck100MHz,
      -- Clock out ports  
       ck4800kHz => open,
@@ -274,7 +274,7 @@ Inst_ImgCtrl: ImgCtrl PORT MAP(
         addraTime => addraTime,
         dinaTime => wordTimeSample(10 downto 3),
      -- frequency domain data signals
---        ena => '1', -- always active
+--     ena => '1', -- always active 
         weaFreq => flgFreqSampleValid,  -- wea is std_logic_vector(0 downto 0) ...
         addraFreq => addraFreq,
         dinaFreq => byteFreqSample, -- selected byte!!!
