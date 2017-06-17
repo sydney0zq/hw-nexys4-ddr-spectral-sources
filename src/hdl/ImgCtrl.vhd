@@ -1,15 +1,5 @@
 ----------------------------------------------------------------------------------
--- Company: Digilent RO
--- Engineer: Mircea Dabacan
--- 
--- Create Date: 12/04/2014 07:52:33 PM
--- Design Name: Audio Spectral Demo 
--- Module Name: ImgCtrl - Behavioral
--- Project Name: TopNexys4Spectral 
--- Target Devices: Nexys 4, Nexys 4 DDR
--- Tool Versions: Vivado 14.2
--- Description: The module:
---  performs three concurent loops:
+-- Description: The module performs three concurent loops:
 --   acquisition  loops:
 --     stores 1024 samples at 48KSPS in TimeBlkMemForFft, indexed by intAddraTime 
 --     (synchronized with the FftBlock)
@@ -19,12 +9,6 @@
 --   display loop
 --     displays the time samples and the frequency samples on the VGA display 
 --     ( synchronized by the VGA ctrl)
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -45,12 +29,12 @@ use IEEE.NUMERIC_STD.ALL;
 entity ImgCtrl is
     Port ( ck100MHz : in STD_LOGIC;
      -- time domain data signals       
-           enaTime : in STD_LOGIC;
-           weaTime : in STD_LOGIC;
-           addraTime : in STD_LOGIC_VECTOR (10 downto 0);
-           dinaTime : in STD_LOGIC_VECTOR (7 downto 0);
+           enaTime : in STD_LOGIC;  --enable 
+           weaTime : in STD_LOGIC;  --write enable
+           addraTime : in STD_LOGIC_VECTOR (10 downto 0); --address
+           dinaTime : in STD_LOGIC_VECTOR (7 downto 0);   --data in
      -- frequency domain data signals
---            enaFreq : in STD_LOGIC;
+--         enaFreq : in STD_LOGIC;
            weaFreq : in STD_LOGIC;
            addraFreq : in STD_LOGIC_VECTOR (10 downto 0);
            dinaFreq : in STD_LOGIC_VECTOR (7 downto 0);
@@ -90,7 +74,7 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF blk_mem_gen_0 : COMPONENT IS "clka,ena,wea[0:0],a
   signal sampleDisplayTime: STD_LOGIC_VECTOR (7 downto 0);  -- time domain sample for display
   signal sampleDisplayFreq: STD_LOGIC_VECTOR (7 downto 0);  -- freq domain sample for display
 
-  --640*480 signal vecadrHor: std_logic_vector(9 downto 0); -- pixel counter (vector)
+  --1280x1024 signal vecadrHor: std_logic_vector(10 downto 0); -- pixel counter (vector)
   signal vecadrHor: std_logic_vector(10 downto 0); -- pixel counter (vector)
   signal vecadrVer: std_logic_vector(9 downto 0); -- lines counter (vector)
 
@@ -100,14 +84,13 @@ ATTRIBUTE BLACK_BOX_PAD_PIN OF blk_mem_gen_0 : COMPONENT IS "clka,ena,wea[0:0],a
  
 begin
 
-   --640*480 vecadrHor <= conv_std_logic_vector(0, 10) when adrHor = cstHorSize - 1 else
-                --conv_std_logic_vector(adrHor + 1, 10);  -- read in advance for compensating the synchronous BRAM delay
-   vecadrHor <= conv_std_logic_vector(0, 11) when adrHor = cstHorSize - 1 else
-                                conv_std_logic_vector(adrHor + 1, 11);  -- read in advance for compensating the synchronous BRAM delay              
-   vecadrVer <= conv_std_logic_vector(adrVer, 10);
+    -- read in advance for compensating the synchronous BRAM delay
+    vecadrHor <= conv_std_logic_vector(0, 11) when adrHor = cstHorSize - 1 else
+                                conv_std_logic_vector(adrHor + 1, 11); 
+    vecadrVer <= conv_std_logic_vector(adrVer, 10);
 
 ------------- Begin Cut here for INSTANTIATION Template ----- INST_TAG
-TimeBlkMemForDisplay: blk_mem_gen_0
+    TimeBlkMemForDisplay: blk_mem_gen_0
   PORT MAP (
     clka => ck100MHz,
     ena => enaTime, -- active while counting
@@ -136,40 +119,9 @@ FreqBlkMemForDisplay: blk_mem_gen_0
     --addrb => "000" & vecadrHor(9 downto 3), -- divide by 8. Display 640/8 = 80 points. Point = 96Khz/512 = 187.5Hz
     doutb => sampleDisplayFreq
   );
+
 -- INST_TAG_END ------ End INSTANTIATION Template ---------
 
-
-  --intRed <= "1111" when adrVer <= cstVerAf/2 and 
-  --                      adrVer >= cstVerAf/4 - conv_integer(sampleDisplayTime) else "0000";
-  --intGreen <= "1111" when --adrVer >= cstVerAf/2 and 
-  --                       adrVer >= cstVerAf*47/48 - conv_integer("0" & sampleDisplayFreq(7) & sampleDisplayFreq(6 downto 0)) else "0000";
-  --intBlue <= "1111" when --adrVer >= cstVerAf/2 and 
-  --             -- frequency range (lower half of the VGA display)
-  --              adrVer >= cstVerAf*47/48 - conv_integer("0" & sampleDisplayFreq(7) & sampleDisplayFreq(6 downto 0)) and 
-  --              -- a frequency marker every 10 bins 
-  --              --(adrHor/8 = 0 or adrHor/8 = 10 or adrHor/8 = 20 or adrHor/8 = 30 or adrHor/8 = 40 or adrHor/8 = 50 or adrHor/8 = 60 or adrHor/8 = 70)
-  --              (adrHor/8 = 0 or adrHor/8 = 10 or adrHor/8 = 20 or adrHor/8 = 30 or adrHor/8 = 40 or adrHor/8 = 50 or adrHor/8 = 60 or adrHor/8 = 70 adrHor/8 = 80 or adrHor/8 = 90 or adrHor/8 = 100 or adrHor/8 = 110 or adrHor/8 = 120 or adrHor/8 = 130 or adrHor/8 = 140 or adrHor/8 = 150)
-  --      else "1111" when
-  --              -- time range (upper half of the VGA display)
-  --              adrVer >= cstVerAf*23/48 and -- - conv_integer(sampleDisplayTime) and 
-  --              adrVer < cstVerAf*24/48 and 
-                -- a marker every 48 time samples
-  --              ((adrHor = 1*48) or 
-  --               (adrHor = 2*48) or 
-  --               (adrHor = 3*48) or 
-  --               (adrHor = 4*48) or 
-  --               (adrHor = 5*48) or 
-  --               (adrHor = 6*48) or 
-  --               (adrHor = 7*48) or 
-  --               (adrHor = 8*48) or 
-  --               ((adrHor >=  9*48) and 
-  --                (adrHor <= 10*48)) or 
-  --               (adrHor = 11*48) or 
-  --               (adrHor = 12*48) or 
-  --               (adrHor = 13*48))  
-
-  --      else "0000";
-        
   intRed <= "1111" when adrVer <= cstVerAf/2 and 
                         adrVer >= cstVerAf/4 - conv_integer(sampleDisplayTime) else "0000";
   intGreen <= "1111" when --adrVer >= cstVerAf/2 and 

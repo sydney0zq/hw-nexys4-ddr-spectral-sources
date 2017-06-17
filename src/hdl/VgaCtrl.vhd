@@ -1,13 +1,4 @@
 ----------------------------------------------------------------------------------
--- Company: Digilent RO
--- Engineer: Dabacan Mircea
--- 
--- Create Date:    17:20:52 11/21/2012 
--- Design Name:    multiple
--- Module Name:    VgaCtrl - Behavioral 
--- Project Name: multiple
--- Target Devices: multiple
--- Tool versions: multiple
 -- Description: 
 --  the component is a VGA controller:
 --      generates the HS and VS synchro signals 
@@ -15,10 +6,6 @@
 --      generates flgActiveVideo during the active area of the VGA image
 -- Dependencies: 
 --  DisplayDefinition package including VGA timing constants
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;

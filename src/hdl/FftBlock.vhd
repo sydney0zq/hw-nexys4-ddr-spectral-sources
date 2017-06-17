@@ -1,16 +1,6 @@
 ----------------------------------------------------------------------------------
--- Company: Digilent RO
--- Engineer: Mircea Dabacan
--- 
--- Create Date: 12/04/2014 07:52:33 PM
--- Design Name: Audio Spectral Demo 
--- Module Name: FftBlock - Behavioral
--- Project Name: TopNexys4Spectral 
--- Target Devices: Nexys 4, Nexys 4 DDR
--- Tool Versions: Vivado 14.2
 -- Description: The module:
---  resets the fft core in ResetStateMachine
---  and then performs three concurent loops:
+--  resets the fft core in ResetStateMachine and then performs three concurent loops:
 --   acquisition  loop:
 --     waits 100ms
 --     waits for the rising edge or the audio signal at threshold 0
@@ -22,18 +12,12 @@
 --
 -- Dependencies: 
 --   FFT core xfft_1
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_SIGNED.ALL;
-
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
