@@ -1,24 +1,7 @@
--- Company: Digilent RO
--- Engineer: Cristian Ignat
--- 
--- Create Date: 12/04/2014 07:52:33 PM
--- Design Name:  
--- Module Name: led_controller - Behavioral
--- Project Name:  
--- Target Devices: 
--- Tool Versions: Vivado 14.2
 -- Description: The module:
 --  stores data for N LEDs (24 bit/LED)
 --  loops sending data to the LED string
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
 ----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;

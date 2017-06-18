@@ -1,8 +1,5 @@
 --	Purpose: This package defines supplemental types, subtypes, 
 --		 constants, and functions 
---
---   To use any of the example code shown below, uncomment the lines and modify as necessary
---
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
@@ -46,47 +43,23 @@ package DisplayDefinition is
 --  constant cstCLKFX_MULTIPLY: integer := 2; --  Can be any integer from 1 to 32
 --  constant cstCLKIN_DIVIDE_BY_2: boolean := true; --  TRUE/FALSE to enable CLKIN divide by two feature
 
-
----- Display definitions for resolution 800 X 600
----- ckVideo = 40MHz
---  constant cstHorAl: integer := 800;  -- pixels/active line
---  constant cstHorFp: integer := 40;  -- pixels/front porch
---  constant cstHorPw: integer := 128;  -- pixels/pulse with
---  constant cstHorBp: integer := 88;  -- pixels/back porch
---   constant cstHorSize: integer := cstHorAl + cstHorFp + cstHorPw + cstHorBp; -- pixel/total line
- 
---  constant cstVerAf: integer := 600;  -- lines/active frame
---  constant cstVerFp: integer := 1;  -- lines/front porch
---  constant cstVerPw: integer := 4;  -- lines/pulse with
---  constant cstVerBp: integer := 23;  -- lines/back porch
---  constant cstVerSize: integer := cstVerAf + cstVerFp + cstVerPw + cstVerBp; -- lines/total frame    
----- constants for DCM (50MHz to 40MHz)
---  constant cstCLKFX_DIVIDE: integer := 5;   --  Can be any interger from 1 to 32
---  constant cstCLKFX_MULTIPLY: integer := 4; --  Can be any integer from 1 to 32
---  constant cstCLKIN_DIVIDE_BY_2: boolean := false; --  TRUE/FALSE to enable CLKIN divide by two feature
-
-
 -- Display definitions for resolution 1280 X 1024
 -- ckVideo = 108.000MHz
-  constant cstHorAl: integer := 1280;  -- pixels/active line
+  constant cstHorAl: integer := 1280;  -- pixels/active line | horizontal display area
   constant cstHorFp: integer := 48;  -- pixels/front porch
   constant cstHorPw: integer := 112;  -- pixels/pulse with
   constant cstHorBp: integer := 248;  -- pixels/back porch
   constant cstHorSize: integer := 1688;-- cstHorAl + cstHorFp + cstHorPw + cstHorBp; -- pixel/total line
---  constant cstHorSize: integer := cstHorAl + cstHorFp + cstHorPw + cstHorBp; -- pixel/total line
  
-  constant cstVerAf: integer := 1024;  -- lines/active frame
+  constant cstVerAf: integer := 1024;  -- lines/active frame | vertical display area
   constant cstVerFp: integer := 1;  -- lines/front porch
   constant cstVerPw: integer := 3;  -- lines/pulse with
   constant cstVerBp: integer := 38;  -- lines/back porch
   constant cstVerSize: integer := 1066; --cstVerAf + cstVerFp + cstVerPw + cstVerBp; -- lines/total frame   
---  constant cstVerSize: integer := cstVerAf + cstVerFp + cstVerPw + cstVerBp; -- lines/total frame    
 -- constants for DCM (50MHz to 40MHz)
 --  constant cstCLKFX_DIVIDE: integer := 5;   --  Can be any interger from 1 to 32
 --  constant cstCLKFX_MULTIPLY: integer := 4; --  Can be any integer from 1 to 32
 --  constant cstCLKIN_DIVIDE_BY_2: boolean := false; --  TRUE/FALSE to enable CLKIN divide by two feature
-
-
 
 
 end DisplayDefinition;
