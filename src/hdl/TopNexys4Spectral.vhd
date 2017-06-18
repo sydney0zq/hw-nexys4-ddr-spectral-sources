@@ -1,13 +1,4 @@
 ----------------------------------------------------------------------------------
--- Company: Digilent RO
--- Engineer: Mircea Dabacan
--- 
--- Create Date: 12/04/2014 07:52:33 PM
--- Design Name: Audio Spectral Demo 
--- Module Name: TopNexys4Spectral - Behavioral
--- Project Name: TopNexys4Spectral 
--- Target Devices: Nexys 4, Nexys 4 DDR
--- Tool Versions: Vivado 14.2
 -- Description: The project:
 --    gets PDM data from the built-in microphone,
 --    digitally filters data for decimation and resolution (16 bit, 48KSPS),
@@ -26,11 +17,6 @@
 --              - data(green) to JC pin4 
 --       -- VGA monitor (to the VGA connector of the NExys 4 or Nexys 4 DDR board) 
 --       -- audio headspeakers (to the audio out connector)
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -89,7 +75,11 @@ architecture Behavioral of TopNexys4Spectral is
 -- video signals
   signal ck25MHz: std_logic;  -- Video clock
   signal flgActiveVideo: std_logic;
+<<<<<<< HEAD
   signal adrHor: integer range 0 to cstHorSize - 1; -- pixel counter    //adhor 1280   csthorsize 1688
+=======
+  signal adrHor: integer range 0 to cstHorSize - 1; -- pixel counter    //adHor 1280   cstHorSize 1688
+>>>>>>> dive
   signal adrVer: integer range 0 to cstVerSize - 1; -- lines counter
 
 -- StartTiemAcquisition

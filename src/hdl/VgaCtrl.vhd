@@ -1,13 +1,4 @@
 ----------------------------------------------------------------------------------
--- Company: Digilent RO
--- Engineer: Dabacan Mircea
--- 
--- Create Date:    17:20:52 11/21/2012 
--- Design Name:    multiple
--- Module Name:    VgaCtrl - Behavioral 
--- Project Name: multiple
--- Target Devices: multiple
--- Tool versions: multiple
 -- Description: 
 --  the component is a VGA controller:
 --      generates the HS and VS synchro signals 
@@ -15,30 +6,29 @@
 --      generates flgActiveVideo during the active area of the VGA image
 -- Dependencies: 
 --  DisplayDefinition package including VGA timing constants
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
 --
+-- Simplified block diagram of a VGA controller
+    -- https://ws1.sinaimg.cn/large/006tNc79gy1fgp52oz4t8j30yv0jldhr.jpg
+-- Timing diagram of a horizontal scan
+    -- https://ws2.sinaimg.cn/large/006tNc79gy1fgp595w6xdj30i70j575s.jpg
+-- Timing diagram of a vertical scan
+    -- https://ws4.sinaimg.cn/large/006tNc79gy1fgp59yk07fj30mp0egjse.jpg
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-
 use work.DisplayDefinition.all;
 
-
----- Uncomment the following library declaration if instantiating
----- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity VgaCtrl is
-
-    Port ( ckVideo : in  STD_LOGIC;
+    Port ( ckVideo : in  STD_LOGIC; -- clock 
            adrHor: out integer range 0 to cstHorSize - 1; -- pixel counter
            adrVer: out integer range 0 to cstVerSize - 1; -- lines counter
 		   flgActiveVideo: out std_logic; -- active video flag
+           -- The hsync and vsync signals are connected to the VGA port to control 
+           -- the horizontal and vertical scans of the monitor. The two signals are
+           -- decoded from the internal counters, whose outputs are the pixel_x and
+           -- pixel_y signals.
            HS : out  STD_LOGIC;
            VS : out  STD_LOGIC);
 end VgaCtrl;

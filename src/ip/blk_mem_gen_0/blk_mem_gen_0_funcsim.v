@@ -1,10 +1,17 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.2 (win64) Build 932637 Wed Jun 11 13:33:10 MDT 2014
+<<<<<<< HEAD
 // Date        : Sun Jun 15 21:54:08 2014
 // Host        : Lenovo-PC running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               D:/XilinxProjects/Nexys4DdrSpectralSources/src/ip/blk_mem_gen_0/blk_mem_gen_0_funcsim.v
+=======
+// Date        : Fri Jun 16 18:12:46 2017
+// Host        : DESKTOP-A7EHJH3 running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim
+//               C:/Nexys4DdrSpectralSources/src/ip/blk_mem_gen_0/blk_mem_gen_0_funcsim.v
+>>>>>>> dive
 // Design      : blk_mem_gen_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
